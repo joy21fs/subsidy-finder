@@ -1,36 +1,36 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 台灣政府補助查詢
 
-## Getting Started
+**website: https://subsidy-finder-seven.vercel.app/**
 
-First, run the development server:
+輸入補助關鍵字或貼上政府頁面網址，AI 即時整理申請資格、所需文件與申請流程。
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 功能
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **關鍵字查詢** — 輸入「失業補助」、「租屋補助」等關鍵字，Claude AI 回傳結構化資訊
+- **URL 解析** — 貼上政府補助頁面，server-side fetch 擷取原始 HTML，AI 分析後輸出統一格式
+- **縣市篩選** — 22 縣市選單，prompt 依地區動態調整，優先顯示地方方案
+- **具體數字** — 金額、薪資門檻等均強制要求具體數值（NT$34,936），拒絕模糊描述
+- **防幻覺連結** — 移除易幻覺的 `officialUrl` 欄位；URL 查詢顯示使用者提供的原始連結，關鍵字查詢導向 Google 搜尋
+- **i18n** — 所有 UI 字串透過 next-intl 管理，語言切換不需改動元件
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 技術決策
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+**為什麼用 Vercel AI Gateway 而非直接呼叫 Anthropic SDK？**
+Gateway 統一管理 API key、rate limiting，未來切換模型只需改 model ID，不需重寫程式。
 
-## Learn More
+**為什麼用 `generateText` + `Output.object` 而非 `generateObject`？**
+Vercel AI SDK v6 已棄用 `generateObject`，現在統一用 `generateText` 搭配 `output` 設定，結果從 `generated.output` 取得。
 
-To learn more about Next.js, take a look at the following resources:
+**為什麼移除 `officialUrl` 欄位？**
+早期版本讓 Claude 自行產生官方網址，但 LLM 高機率產生不存在的 URL。現在只在使用者主動提供 URL 時才顯示連結，關鍵字查詢改用 Google 搜尋。
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 技術棧
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| 項目 | 選擇 |
+|------|------|
+| 框架 | Next.js 16 App Router |
+| AI | Vercel AI SDK v6 + AI Gateway → Claude Sonnet 4.6 |
+| 結構化輸出 | Zod schema + `Output.object` |
+| 樣式 | Tailwind CSS v4 |
+| 國際化 | next-intl v4 |
+| 測試 | Vitest + React Testing Library |
