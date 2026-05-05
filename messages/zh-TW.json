@@ -1,0 +1,39 @@
+{
+  "Metadata": {
+    "title": "台灣政府補助查詢",
+    "description": "輸入關鍵字或補助頁面網址，AI 幫你整理申請資格與所需文件"
+  },
+  "HomePage": {
+    "heading": "台灣政府補助查詢",
+    "subheading": "貼上補助申請頁面網址，或直接輸入關鍵字，AI 幫你整理申請條件與所需文件",
+    "countyLabel": "所在縣市",
+    "countyHint": "將優先顯示 {county} 相關補助",
+    "inputPlaceholder": "輸入補助網址（如 https://www.bli.gov.tw/...）或關鍵字（如 失業補助、租屋補助）",
+    "inputHintUrl": "🔗 將擷取網址內容分析",
+    "inputHintKeyword": "💡 以關鍵字查詢",
+    "inputHintDefault": "支援網址或關鍵字",
+    "submitLoading": "查詢中...",
+    "submitButton": "查詢補助資訊",
+    "quickSearchLabel": "快速查詢：",
+    "emptyState": "輸入關鍵字或貼上補助頁面網址，即可查詢申請資格與所需文件",
+    "errorNetwork": "網路錯誤，請確認連線後再試。",
+    "errorUnknown": "發生未知錯誤，請稍後再試。",
+    "examples": ["失業補助", "老屋翻修補助", "租屋補助", "育兒補助"],
+    "counties": [
+      "全台灣",
+      "臺北市", "新北市", "桃園市", "臺中市", "臺南市", "高雄市",
+      "基隆市", "新竹市", "新竹縣", "苗栗縣", "彰化縣", "南投縣",
+      "雲林縣", "嘉義市", "嘉義縣", "屏東縣", "宜蘭縣", "花蓮縣",
+      "臺東縣", "澎湖縣", "金門縣", "連江縣"
+    ]
+  },
+  "ResultCard": {
+    "sourceLabel": "來源：",
+    "eligibility": "申請資格",
+    "documents": "所需文件",
+    "steps": "申請流程",
+    "viewSource": "查看原始頁面 →",
+    "searchOfficial": "搜尋官方資訊 →",
+    "searchSuffix": " 台灣 申請 官方"
+  }
+}
